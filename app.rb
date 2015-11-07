@@ -5,7 +5,8 @@ require 'sinatra'
 require 'sequel'
 require 'sqlite3'
 
-DB = Sequel.sqlite
+DB = Sequel.sqlite('contacts.db')
+DB.drop_table :contacts
 DB.create_table :contacts do
   primary_key :id
   String :first_name
