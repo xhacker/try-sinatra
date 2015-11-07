@@ -2,9 +2,24 @@ require 'rubygems'
 require 'bundler/setup'
 
 require 'sinatra'
+require 'sequel'
+require 'sqlite3'
+
+DB = Sequel.sqlite
+DB.create_table :contacts do
+  primary_key :id
+  String :first_name
+  String :last_name
+  String :email
+  String :phone
+  String :notes
+end
+
+class Contact < Sequel::Model; end
 
 get '/' do
-  "Hello, World!"
+  @contacts = Contact.all
+  erb :index
 end
 
 get '/hello/:name' do

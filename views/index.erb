@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact List</title>
+</head>
+<body>
+
+<h1>Contact List</h1>
+
+<ul>
+    <% @contacts.each do |contact| %>
+    <li><a href="/contacts/<%= contact.id %>"><%= contact.first_name %> <%= contact.last_name %></a></li>
+    <% end %>
+</ul>
+
+<p><a href="/new">Add new contact</a></p>
+
+</body>
+</html>
