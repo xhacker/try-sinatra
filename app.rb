@@ -15,23 +15,27 @@ DB.create_table :contacts do
   String :notes
 end
 
-class Contact < Sequel::Model; end
-
 get '/' do
-  @contacts = Contact.all
+  @contacts = DB[:contacts]
+  puts @contacts.count
   erb :index
 end
 
-get '/hello/:name' do
-  "Hello there, #{params[:name]}."
+get '/new' do
+  erb :new
 end
 
-get '/form' do
-  erb :form
-end
-
-post '/form' do
-  "You said '#{params[:message]}'"
+post '/new' do
+  contacts = DB[:contacts]
+  contacts.insert(
+    :first_name => params[:first_name],
+    :last_name  => params[:last_name],
+    :email      => params[:email],
+    :phone      => params[:phone],
+    :notes      => params[:notes],
+  )
+  puts "Contact count: #{contacts.count}"
+  redirect to('/')
 end
 
 not_found do
